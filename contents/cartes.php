@@ -8,9 +8,6 @@
         <h2 id="titreCarte"></h2>
 </div>
 <div class="d-flex flex-column" id="listeMenus">
-
-        
-
 </div>
 
 <script>
