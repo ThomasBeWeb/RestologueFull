@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include "./template/header.html";
+include "./template/header.php";
 include "./template/navigation.php";
 
 //Affichage content en fonction du GET

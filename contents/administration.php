@@ -1,105 +1,247 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <title>Restologue</title>
-        <meta charset="UTF-8">
-        <link rel="icon" type="image/png" href="favicon.png" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-        <link href="./css/backStyle.css" rel="stylesheet">
-        <script>
+<head>
+    <title>Restologue</title>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-            $.ajax({
-                type: "GET",
-                url: "https://whispering-anchorage-52809.herokuapp.com/connected",
-                statusCode: {
-                    200: function () {
-                    },
-                    401: function () {
-                        window.location.href = "./connexion.html";
-                    }
+    <link href="./css/backStyle.css" rel="stylesheet">
+    <script>
+
+        $.ajax({
+            type: "GET",
+            url: "https://whispering-anchorage-52809.herokuapp.com/connected",
+            statusCode: {
+                200: function () {
+                },
+                401: function () {
+                    window.location.href = "./connexion.html";
                 }
-            });
-        </script>
-    </head>
+            }
+        });
+    </script>
+</head>
 
-    <body>
-        <div class="container-fluid">
-            <div class="row head">
-                <h2>Administration</h2>
+<body>
+    <div class="container-fluid">
+        <div class="row head">
+            <h2>Administration</h2>
+        </div>
+        <div class="row corps">
+
+            <!-- ZONE DE GAUCHE: CARTES -->
+            <div class="col-3 gauche">
+                <h4>Mes cartes</h4>
+                <br>
+                <!-- Zone d'ajout d'une carte -->
+                <div>
+                    <h5>Créer une carte</h5>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Nom</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Nom de la carte" aria-label="cardName" aria-describedby="cardName" id="nouveauNomCarte">
+                        <button type="button" class="btn btn-success" onclick="addCarte();">
+                            <b>+</b>
+                        </button>
+                    </div>
+                </div>
+                <!-- Zone affichage de toutes les cartes créées -->
+                <h5>Liste des cartes</h5>
+                <div id="listeCartes"></div>
             </div>
-            <div class="row corps">
 
-                <!-- LISTE DES CARTES -->
-                <div class="col-3 gauche">
-                    <h4>Liste des cartes</h4>
+            <!-- ZONE DE DROITE -->
+            <div class="col-9 droite">
+                <!-- Zone affichage carte en cours -->
+                <div class="row infosCarte">
+                    <div class="col-4">
 
-                    <!-- Zone d'ajout d'une carte -->
-                    <div>
-                        <h5>Créer une carte</h5>
+                        <h4>Infos carte</h4>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Nom</span>
+                                <span class="input-group-text">Nom</span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Nom de la carte" aria-label="cardName" aria-describedby="cardName" id="nouveauNomCarte">
-                            <button type="button" class="btn btn-success" onclick="addCarte();"><b>+</b></button>
+                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" id="nomCarteEdit">
                         </div>
+                        <br>
+                        <h5>Supprimer définitivement la carte</h5>
+                        <button type="button" id="modalSuppCarte" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deleteCard" aria-disabled="true" disabled>Supprimer</button>
+                        <!-- Input invisible stockant l'id de la carte -->
+                        <input type="text" id="stockIDCarte" class="hidden" value="">
                     </div>
 
+                    <!-- Zone affichage des menus de la carte sélectionnée -->
+                    <div class="col-8">
+                        <h4>Liste des menus</h4>
 
-                    <div id="listeCartes"></div>
-                </div>
-                <div class="col-9 droite">
-
-                    <div class="row infosCarte">
-                        <div class="col-4">
-                            <h4>Infos carte</h4>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" >Nom</span>
-                                </div>
-                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" id="nomCarteEdit">
-                            </div>
-                        </div>
-                        <div class="col-8">
-                            <h4>Liste des menus</h4>
-
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Menu</th>
-                                        <th scope="col">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="listeMenusCarte">
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row infosCarte">
-                        <table class="table">
+                        <table class="table table-bordered table-sm">
                             <thead>
                                 <tr>
                                     <th scope="col">Menu</th>
-                                    <th scope="col">Entrée</th>
-                                    <th scope="col">Plat</th>
-                                    <th scope="col">Dessert</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="ligneMenu">
+                            <tbody id="listeMenusCarte">
                             </tbody>
                         </table>
                     </div>
                 </div>
+                <hr>
+                <!-- Ajouter Menu-->
+                <div class="row">
+                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#showMenu" onclick="showMeTheMenu(0);">+ Créer Menu</button>
+                </div>
+                <!-- Zone affichage de tous les menus -->
+                <div class="row listeMenus">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Suppr.</th>
+                                <th scope="col">Menu</th>
+                                <th scope="col">Entrée</th>
+                                <th scope="col">Plat</th>
+                                <th scope="col">Dessert</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ligneMenu">
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
         </div>
-    </body>
-    <script src="./js/scriptIndex.js" type="text/javascript"></script>
+    </div>
+
+    <!-- Modal modifier menu-->
+    <div class="modal fade" id="showMenu" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="titredelAction">Modifier le menu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group ">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Titre du menu</div>
+                        </div>
+                        <input type="text" class="form-control" id="titreMenu">
+                    </div>
+                    <hr>
+
+                    <h5>Entrée</h5>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Titre</div>
+                                </div>
+                                <input type="text" class="form-control" id="titreEntree">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-5">
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Prix</div>
+                                </div>
+                                <input type="number" class="form-control" id="prixEntree">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">€</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h5>Plat</h5>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Titre</div>
+                                </div>
+                                <input type="text" class="form-control" id="titrePlat">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-5">
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Prix</div>
+                                </div>
+                                <input type="number" class="form-control" id="prixPlat">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">€</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h5>Dessert</h5>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Titre</div>
+                                </div>
+                                <input type="text" class="form-control" id="titreDessert">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-5">
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Prix</div>
+                                </div>
+                                <input type="number" class="form-control" id="prixDessert">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">€</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveButtModal">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Sûr de supprimer carte-->
+    <div class="modal fade" id="deleteCard" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="titredelAction">Supprimer</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5 id="confirmDeleteCard">...</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary" id="deleteCardButt">Supprimer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+</body>
+<script src="./js/scriptIndex.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 </html>
