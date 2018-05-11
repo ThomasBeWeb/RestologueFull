@@ -12,7 +12,7 @@ $listeFichiers = array("Home" => $homedir);
 
 foreach($fichiers as $value){
     
-      if($value !== "." AND $value !== ".."){     //Verifie si pas "." ou ".."
+      if($value !== "." AND $value !== ".." AND $value !== "administration.php"){     //Verifie si pas "." ou ".." ou admin
           
         //recup du nom du lien: nom du fichier sans .php
         $name = explode(".php", $value);
@@ -20,6 +20,11 @@ foreach($fichiers as $value){
         //Ajout dans le tableau
         $listeFichiers[$name[0]] = $homedir."?page=".$name[0];
       }
+}
+
+//Si Admin, ajout de la page Administration
+if($_SESSION['fonction'] === "admin"){
+    $listeFichiers['Administration'] = $homedir."?page=administration";
 }
 ?>
 
