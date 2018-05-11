@@ -8,7 +8,7 @@ $homedir = "http://restologue/";
 $fichiers = scandir("./contents/");
 
 //Creation de la liste de fichiers sous la forme: nom du lien => lien
-$listeFichiers = array("home" => $homedir);
+$listeFichiers = array("Home" => $homedir);
 
 foreach($fichiers as $value){
     
@@ -16,15 +16,9 @@ foreach($fichiers as $value){
           
         //recup du nom du lien: nom du fichier sans .php
         $name = explode(".php", $value);
-        $nameSansPhp = $name[0];
-    
-        //Modif livredor pour faire joli
-        if($nameSansPhp === "livredor"){
-            $nameSansPhp = "Livre d'or";
-        }
 
         //Ajout dans le tableau
-        $listeFichiers[$nameSansPhp] = $homedir."?page=".$name[0];
+        $listeFichiers[$name[0]] = $homedir."?page=".$name[0];
       }
 }
 ?>
@@ -34,9 +28,28 @@ foreach($fichiers as $value){
     //Boucle sur la liste des fichiers et affiche
     
     foreach($listeFichiers as $key => $value){
+
+        //Ajoute class pageSelected si page active
+
+        if($key === $_GET['page'] OR (isset($_GET['page']) === false AND $key === 'Home')){   //Si valeur get = key ou si page home (sans get)
+        ?>
+             <div class="p-2 pageSelected">
+        <?php
+        }else{
         ?>
             <div class="p-2">
-                <a href=<?=$value;?>><?=$key;?></a>
+        <?php
+        }
+        ?>
+           <a href=<?=$value;?>>
+        <?php
+
+        //Modif livredor pour faire joli
+        if($key === "livredor"){
+            $key = "Livre d'or";
+        }
+        ?>
+            <?=$key;?></a>
             </div>
          <?php
     }
