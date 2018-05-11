@@ -16,7 +16,7 @@
        ?>
         <link href="./css/backStyle.css" rel="stylesheet">
         <?php
-            }else if($_GET['page'] === "connexion"){
+            }else if($_GET['page'] === "login"){
         ?>
         <link href="./css/styleConnexion.css" rel="stylesheet">
         <?php
