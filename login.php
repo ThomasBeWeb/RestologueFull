@@ -43,24 +43,24 @@ if($_POST){
     }else{ //Check Login
         $_SESSION['username'] = $_POST['username'];
 
-    //Verif si admin
+        //Verif si admin
 
-    if ($stream = fopen('https://whispering-anchorage-52809.herokuapp.com/use/'.$_POST['username'], 'r')) {
-        
-        $fonction = stream_get_contents($stream, -1, 0);
+        if ($stream = fopen('https://whispering-anchorage-52809.herokuapp.com/use/'.$_POST['username'], 'r')) {
+            
+            $fonction = stream_get_contents($stream, -1, 0);
 
-        fclose($stream);
-        
-        $_SESSION['fonction'] = $fonction;
+            fclose($stream);
+            
+            $_SESSION['fonction'] = $fonction;
 
-        if($fonction === "admin"){  //Si admin affichage de la page login
+            if($fonction === "admin"){  //Si admin affichage de la page login
 
-            echo showMeTheLoginPage();
+                echo showMeTheLoginPage();
 
-        }else{
-            header("location: ".$_SERVER['HTTP_REFERER']);
+            }else{
+                header("location: ".$_SERVER['HTTP_REFERER']);
+            }
         }
-    }
     }
     
 }else{
