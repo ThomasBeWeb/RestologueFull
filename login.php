@@ -1,7 +1,41 @@
 <?php
 session_start();
+
+require("./scripts/fonctions.php");
+
 if($_POST){
-    $_SESSION['username'] = $_POST['username'];
+
+    //Check si POST venant de l'étape simple login ou la suivante verif mot de passe admin
+
+    if(isset($_SESSION['fonction'])){ //Etape verif password
+/*
+$url = $file_name;
+$fields = array(
+            '__VIEWSTATE'=>urlencode($state),
+            '__EVENTVALIDATION'=>urlencode($valid),
+            'btnSubmit'=>urlencode('Submit')
+        );
+
+//url-ify the data for the POST
+foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
+$fields_string = rtrim($fields_string,'&');
+
+//open connection
+$ch = curl_init();
+
+//set the url, number of POST vars, POST data
+curl_setopt($ch,CURLOPT_URL,$url);
+curl_setopt($ch,CURLOPT_POST,count($fields));
+curl_setopt($ch,CURLOPT_POSTFIELDS,$fields_string);
+
+//execute post
+$result = curl_exec($ch);
+print $result;
+*/
+        echo $_POST['username']."+".$_POST['password'];
+
+    }else{ //Check Login
+        $_SESSION['username'] = $_POST['username'];
 
     //Verif si admin
 
@@ -15,64 +49,14 @@ if($_POST){
 
         if($fonction === "admin"){  //Si admin affichage de la page login
 
-        ?>
-<!DOCTYPE html>
-<html>
+            echo showMeTheLoginPage();
 
-<head>
-    <title>Le restologue</title>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="./favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-</head>
-
-<body>
-    <div class="container-fluid">
-        <div class="row main">
-            <div class="main-login main-center">
-
-                <div class="form-group">
-                    <label for="username" class="cols-sm-2 control-label">Username</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="fa fa-users fa" aria-hidden="true"></i>
-                            </span>
-                            <input type="text" class="form-control" name="username" id="username" placeholder="Enter your Username" value="administrateur"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="password" class="cols-sm-2 control-label">Password</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="fa fa-lock fa-lg" aria-hidden="true"></i>
-                            </span>
-                            <input type="password" class="form-control" name="password" id="password" placeholder="Enter your Password" value=""/>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group ">
-                <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Login</button>
-            </div>
-    </div>
-</div>
-</div>
-</body>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js "></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js "></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js "></script>
-        <link href="./css/styleConnexion.css " rel="stylesheet ">
-</html>
-    <?php
         }else{
             header("location: ".$_SERVER['HTTP_REFERER']);
         }
     }
+    }
+    
 }else{
     session_destroy();
     header("location: ".$_SERVER['HTTP_REFERER']);
