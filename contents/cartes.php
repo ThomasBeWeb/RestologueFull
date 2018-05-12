@@ -3,30 +3,30 @@
 </div>
 <hr>
 <!-- Import de la carte -->
+<?php
+if ($stream = fopen('https://whispering-anchorage-52809.herokuapp.com/cartes/1/get', 'r')) {
+            
+        $lastCarteJson = stream_get_contents($stream, -1, 0);
+
+        fclose($stream);
+
+        //Conversion en tableau
+        $lastCarte = json_decode($lastCarteJson, true);
+}
+?>
 
 <div class="row justify-content-center">
-        <h2 id="titreCarte"></h2>
+        <h2 id=<?=$lastCarte['nom>'];?></h2>
 </div>
-<div class="d-flex flex-column" id="listeMenus">
+<div class="d-flex flex-column">
 </div>
 
-<script>
+<?php
+foreach($lastCarte['menu'] as $value){
 
-        var lastCard;
 
-        $.ajax({
-                type: "GET",
-                url: "https://whispering-anchorage-52809.herokuapp.com/cartes/1/get",
-                async: false,
-                success: function (data) {
-                        lastCard = data;
-                },
-                error: function () {
-                        alert("erreur resup carte");
-                }
-        });
-
-        $("#titreCarte").text(lastCard.nom);
+/*
+}
 
         //Creation d'une ligne par menu
 
@@ -62,4 +62,6 @@
                         
         }
 
-</script>
+*/
+
+}
