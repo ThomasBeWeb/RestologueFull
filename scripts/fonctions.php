@@ -24,8 +24,8 @@ function showMeTheBar(){
         }
     }
 
-    //Si Admin, ajout de la page Administration
-    if($_SESSION['fonction'] === "admin"){
+    //Si Admin ET password confirmé, ajout de la page Administration
+    if($_SESSION['fonction'] === "admin" AND $_SESSION['checked'] === "true"){
         $listeFichiers['Administration'] = $homedir."?page=administration";
     }
 

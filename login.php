@@ -8,31 +8,37 @@ if($_POST){
     //Check si POST venant de l'étape simple login ou la suivante verif mot de passe admin
 
     if(isset($_SESSION['fonction'])){ //Etape verif password
-/*
-$url = $file_name;
-$fields = array(
-            '__VIEWSTATE'=>urlencode($state),
-            '__EVENTVALIDATION'=>urlencode($valid),
-            'btnSubmit'=>urlencode('Submit')
-        );
 
-//url-ify the data for the POST
-foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
-$fields_string = rtrim($fields_string,'&');
+        //Infos à POST
 
-//open connection
-$ch = curl_init();
+        $dataTab = array('username'=> $_POST['username'] ,'password'=> $_POST['password']);
+        $data = json_encode($dataTab);
 
-//set the url, number of POST vars, POST data
-curl_setopt($ch,CURLOPT_URL,$url);
-curl_setopt($ch,CURLOPT_POST,count($fields));
-curl_setopt($ch,CURLOPT_POSTFIELDS,$fields_string);
+        //POST: http://php.net/manual/en/function.stream-context-create.php
+        $context_options = array (
+                'http' => array (
+                    'method' => 'POST',
+                    'header'=> "Content-type: application/json; charset=utf-8\r\n"
+                        . "Content-Length: " . strlen($data) . "\r\n",
+                    'content' => $data
+                    )
+                );
 
-//execute post
-$result = curl_exec($ch);
-print $result;
-*/
-        echo $_POST['username']."+".$_POST['password'];
+        $context = stream_context_create($context_options);
+        $fp = fopen('https://whispering-anchorage-52809.herokuapp.com/verify', 'r', false, $context);
+
+        $result = stream_get_contents($fp, -1, 0);
+
+        fclose($fp);
+
+        //Verif resultat
+
+        if($result === "true"){   //Password OK
+            $_SESSION['checked'] = "true";
+            header("location: http://localhost:8888/RestologueFull/");
+        }else{
+            echo showMeTheLoginPage();
+        }
 
     }else{ //Check Login
         $_SESSION['username'] = $_POST['username'];
