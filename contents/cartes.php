@@ -23,45 +23,27 @@ if ($stream = fopen('https://whispering-anchorage-52809.herokuapp.com/cartes/1/g
 
 <?php
 foreach($lastCarte['menu'] as $value){
+?>
+<div class="d-flex flex-column petiteCarte">
+        <div class="p-2">
+                <h3>menu enfant</h3>
+                <div class="p-2 d-flex flex-row justify-content-around">
+                        <div class="p-2">
+                                <h4>Entrée:</h4>
+                                <h4>Salade</h4>
+                        </div>
+                        <div class="p-2">
+                                <h4>Plat:</h4>
+                                <h4>Steak frites</h4>
+                        </div>
+                        <div class="p-2">
+                                <h4>Entrée:</h4>
+                                <h4>Crême brulée</h4>
+                        </div>
+                </div>
+        </div>
+</div>
 
-
-/*
+<?php
 }
-
-        //Creation d'une ligne par menu
-
-        var listeDesMenus = lastCard.menu;
-
-        for (var i = 0; i < listeDesMenus.length; i++) {
-
-                $("#listeMenus").append($("<div>")
-                        .addClass("d-flex flex-column petiteCarte")
-                        .append($("<div>")
-                                .addClass("p-2")
-                                .append($("<h3>").text(listeDesMenus[i].nom))
-                        .append($("<div>")
-                                .addClass("p-2 d-flex flex-row justify-content-around")
-                                .append($("<div>")
-                                        .addClass("p-2")
-                                        .append($("<h4>").text("Entrée:"))
-                                        .append($("<h4>").text(listeDesMenus[i].entree.nom))
-                                        )
-                                .append($("<div>")
-                                        .addClass("p-2")
-                                        .append($("<h4>").text("Plat:"))
-                                        .append($("<h4>").text(listeDesMenus[i].plat.nom))
-                                        )
-                                .append($("<div>")
-                                        .addClass("p-2")
-                                        .append($("<h4>").text("Entrée:"))
-                                        .append($("<h4>").text(listeDesMenus[i].dessert.nom))
-                                        )
-                                )
-                        )
-                );
-                        
-        }
-
-*/
-
-}
+?>
