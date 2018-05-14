@@ -84,9 +84,22 @@ function showMeACard(idCarte) {
     //Ajout du nom de la carte
     $("#nomCarteEdit").val(carteAAfficher.nom);
 
+    //Activation et modif de l'action du checkbox
+    $("#afficheSiteCheck").removeAttr('disabled');
+    $("#afficheSiteCheck").attr("aria-disabled", false);
+
+    console.log(carteAAfficher);
+
+    if(carteAAfficher.online === "true"){
+        
+        $("#afficheSiteCheck").prop('checked', true);
+    }else{
+        $("#afficheSiteCheck").prop('checked', false);
+    }
+
     //Activation et modif de l'action du bouton supprimer
     $("#modalSuppCarte").removeAttr('disabled');
-    $("#modalSuppCarte").attr("aria-disabled", false)
+    $("#modalSuppCarte").attr("aria-disabled", false);
     $("#modalSuppCarte").attr("onclick", "deleteCarCheck(" + carteAAfficher.id + ");");
 
     //Affichage des menus dans le tableau si il y en a
@@ -406,3 +419,23 @@ function checkMyMenu(idMenuToCheck){
     return reponse;
 };
 
+//Action de cocher la checkbox -> ajout de la carte en ligne
+
+$("#afficheSiteCheck").change(function() {
+
+    //Recup de l'id de la carte en cours
+    var idCarteEnCours = $("#stockIDCarte").val();
+    
+    $.ajax({
+        type: "GET",
+        url: "https://whispering-anchorage-52809.herokuapp.com/cartes/" + idCarteEnCours + "/online",
+        async: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function () {
+            alert("Erreur dans la modification");
+        }
+    });
+
+});
