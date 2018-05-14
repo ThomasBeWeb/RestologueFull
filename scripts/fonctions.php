@@ -1,32 +1,31 @@
 <?php
 
-    //Dossier racine
-    //$homedir = "http://restologue/";
-    $homedir = "http://localhost:8888/RestologueFull/";
-
 function showMeTheBar(){
 
+    //Dossier racine
+    $racine = "http://restologue/";
+   
     //recup de la liste des fichiers du dossier content
     $fichiers = scandir("./contents/");
 
     //Creation de la liste de fichiers sous la forme: nom du lien => lien
-    $listeFichiers = array("Home" => $homedir);
+    $listeFichiers = array("Home" => $racine);
 
     foreach($fichiers as $value){
-        
+
         if($value !== "." AND $value !== ".." AND $value !== "administration.php"){     //Verifie si pas "." ou ".." ou admin
             
             //recup du nom du lien: nom du fichier sans .php
             $name = explode(".php", $value);
 
             //Ajout dans le tableau
-            $listeFichiers[$name[0]] = $homedir."?page=".$name[0];
+            $listeFichiers[$name[0]] = $racine."?page=".$name[0];
         }
     }
 
     //Si Admin ET password confirmé, ajout de la page Administration
     if($_SESSION['fonction'] === "admin" AND $_SESSION['checked'] === "true"){
-        $listeFichiers['Administration'] = $homedir."?page=administration";
+        $listeFichiers['Administration'] = $racine."?page=administration";
     }
 
     $message = '<div class="d-flex flex-row align-items-center">';
@@ -85,6 +84,9 @@ function showMeTheBar(){
 
 function showMeTheLoginPage(){
 
+    //Dossier racine
+    $racine = "http://restologue/";
+
     return '
     
     <!DOCTYPE html>
@@ -102,7 +104,7 @@ function showMeTheLoginPage(){
     <div class="container-fluid">
         <div class="row main">
             <div class="main-login main-center">
-                <form action="'.$homedir.'login.php" role="form" method="post">
+                <form action="'.$racine.'login.php" role="form" method="post">
                     <div class="form-group">
                         <label for="username" class="cols-sm-2 control-label">Username</label>
                         <div class="cols-sm-10">
@@ -141,3 +143,5 @@ function showMeTheLoginPage(){
     
     ';
 }
+
+?>

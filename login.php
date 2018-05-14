@@ -35,7 +35,7 @@ if($_POST){
 
         if($result === "true"){   //Password OK
             $_SESSION['checked'] = "true";
-            header("location: http://localhost:8888/RestologueFull/");
+            header("location: http://restologue/");
         }else{
             echo showMeTheLoginPage();
         }
@@ -65,5 +65,11 @@ if($_POST){
     
 }else{
     session_destroy();
-    header("location: ".$_SERVER['HTTP_REFERER']);
+
+    if($_SERVER['HTTP_REFERER'] === "http://restologue/?page=administration"){
+        header("location: http://restologue/");
+    }else{
+        header("location: ".$_SERVER['HTTP_REFERER']);
+    }
+    
 }

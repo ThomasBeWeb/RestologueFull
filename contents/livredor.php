@@ -5,8 +5,8 @@
 <?php
 
     //Dossier racine
-    //$homedir = "http://restologue/";
-    $homedir = "http://localhost:8888/RestologueFull/";
+    $homedir = "http://restologue/";
+    //$homedir = "http://localhost:8888/RestologueFull/";
 
 //Si session, affichage du module insertion de message sinon message demandant connexion
 
