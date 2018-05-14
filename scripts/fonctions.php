@@ -13,13 +13,35 @@ function showMeTheBar(){
 
     foreach($fichiers as $value){
 
-        if($value !== "." AND $value !== ".." AND $value !== "administration.php"){     //Verifie si pas "." ou ".." ou admin
+        //Pour les fichiers:
+        if(is_file("./contents/".$value) AND $value !== "administration.php"){     //Verifie si fichier et pas admin
             
             //recup du nom du lien: nom du fichier sans .php
             $name = explode(".php", $value);
 
             //Ajout dans le tableau
             $listeFichiers[$name[0]] = $racine."?page=".$name[0];
+        
+        }else if(is_dir("./contents/".$value) AND $value !== "." AND $value !== ".."){ //Verifie si dossier et pas . ou ..
+
+            $sousDossier = scandir("./contents/".$value."/");
+
+            $sousDossierKeep;
+
+            foreach($sousDossier as $item){
+                if($item !== "." AND $item !== ".."){
+                    //recup du nom du lien: nom du fichier sans .php
+                    $name2 = explode(".php", $item);
+
+                    //Ajout dans le tableau
+                    $sousDossierKeep[$name2[0]] = $racine."?page=".$name2[0];
+                }
+            }
+
+            //Ajout de sousDossierKeep dans $listeFichiers
+
+            $listeFichiers[$value] = $sousDossierKeep;
+
         }
     }
 
@@ -30,11 +52,27 @@ function showMeTheBar(){
 
     $message = '<div class="d-flex flex-row align-items-center">';
 
-    //Boucle sur la liste des fichiers et affiche
+    //Boucle sur la liste des fichiers et dossiers et affiche
     
     foreach($listeFichiers as $key => $value){
 
-        //Ajoute class pageSelected si page active
+        //Check si fichier ou dossier
+
+        if(is_array($value)){ //Si array = dossier
+
+            $message .= '<div class="dropdown">
+            <a class="dropdown-toggle" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
+            .$key.'</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">';
+
+            foreach($value as $sousNom => $sousFichier){
+                $message .= '<a class="dropdown-item" href="'.$sousFichier.'">'.$sousNom.'</a>';  
+            }
+            $message .= '</div></div>';
+
+        }else{
+
+            //Ajoute class pageSelected si page active
 
         if($key === $_GET['page'] OR (isset($_GET['page']) === false AND $key === 'Home')){   //Si valeur get = key ou si page home (sans get)
 
@@ -55,6 +93,8 @@ function showMeTheBar(){
         }
 
         $message .= $key.'</a></div>';
+
+        }
     }
 
     if($_SESSION){

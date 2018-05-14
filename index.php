@@ -11,5 +11,5 @@ if($_GET){
 }else{
     include "./template/default.html";  //Page Home
 }
-include "./template/footer.html";
+include "./template/footer.php";
 ?>		
