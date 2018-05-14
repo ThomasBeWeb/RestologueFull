@@ -1,33 +1,4 @@
-<!DOCTYPE html>
-<html>
 
-<head>
-    <title>Restologue</title>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-    <link href="./css/backStyle.css" rel="stylesheet">
-    <script>
-
-        $.ajax({
-            type: "GET",
-            url: "https://whispering-anchorage-52809.herokuapp.com/connected",
-            statusCode: {
-                200: function () {
-                },
-                401: function () {
-                    window.location.href = "./connexion.html";
-                }
-            }
-        });
-    </script>
-</head>
-
-<body>
-    <div class="container-fluid">
         <div class="row head">
             <h2>Administration</h2>
         </div>
