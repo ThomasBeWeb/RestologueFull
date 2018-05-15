@@ -1,6 +1,6 @@
 
     <div class="row head">
-        <h2>Administration</h2>
+        <h2>Gestion des cartes</h2>
     </div>
     <div class="row corps">
 

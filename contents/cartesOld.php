@@ -1,6 +1,3 @@
-
-        
-
 <?php
 //Recuperation de la liste des ID des cartes Online
 

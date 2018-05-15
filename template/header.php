@@ -10,7 +10,7 @@
         
         <link href="./css/style.css" rel="stylesheet">
         <?php
-            if($_GET['page'] === "administration"){
+            if($_GET['page'] === "gestionCartes"){
        ?>
         <link href="./css/backStyle.css" rel="stylesheet">
         <?php
