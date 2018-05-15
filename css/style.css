@@ -7,7 +7,7 @@ body{
 }
 
 a{
-    color:rgb(13, 150, 143);
+    color:rgb(22, 126, 121);
 }
 
 .caption {
@@ -36,9 +36,15 @@ a{
 }
 
 .petiteCarte{
-    border: 2px solid rgb(13, 150, 143);
+    border: 2px solid rgb(22, 126, 121);
     border-radius: 5px;
     margin: 10px;
+}
+
+.elementCol{
+    border: 2px solid rgb(22, 126, 121);
+    border-radius: 5px;
+    padding: 10px;
 }
 
 .pageSelected{
