@@ -32,7 +32,7 @@ foreach($listeIDs as $idCarte){
         ?>
         
         <div class="row justify-content-center">
-                <h2><?=$myCard['nom>'];?></h2>
+                <h2><?= $myCard['nom'];?></h2>
         </div>
         <div class="d-flex flex-column">
         </div>
