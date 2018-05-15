@@ -14,7 +14,7 @@ function showMeTheBar(){
     foreach($fichiers as $value){
 
         //Pour les fichiers:
-        if(is_file("./contents/".$value) AND $value !== "gestionCartes.php"){     //Verifie si fichier et pas admin
+        if(is_file("./contents/".$value) AND $value !== "gestionCartes.php" AND $value !== "gestionUsers.php"){     //Verifie si fichier et pas admin
             
             //recup du nom du lien: nom du fichier sans .php
             $name = explode(".php", $value);
@@ -48,6 +48,7 @@ function showMeTheBar(){
     //Si Admin ET password confirmé, ajout de la page Administration
     if($_SESSION['fonction'] === "admin" AND $_SESSION['checked'] === "true"){
         $listeFichiers['Gestion cartes'] = $racine."?page=gestionCartes";
+        $listeFichiers['Gestion users'] = $racine."?page=gestionUsers";
     }
 
     $message = '<div class="d-flex flex-row align-items-center">';
