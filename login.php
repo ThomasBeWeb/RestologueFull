@@ -66,7 +66,7 @@ if($_POST){
 }else{
     session_destroy();
 
-    if($_SERVER['HTTP_REFERER'] === "http://restologue/?page=administration"){
+    if($_SERVER['HTTP_REFERER'] === "http://restologue/?page=gestionCartes"){
         header("location: http://restologue/");
     }else{
         header("location: ".$_SERVER['HTTP_REFERER']);
