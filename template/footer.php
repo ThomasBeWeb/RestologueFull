@@ -7,7 +7,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 <?php
-if($_GET['page'] === "gestionCartes"){
+if($_GET AND $_GET['page'] === "gestionCartes"){
 ?>
 <script src="./scripts/scriptIndex.js" type="text/javascript"></script>
 <?php

@@ -1,5 +1,6 @@
 <?php
 session_start();
+require('./folder.php');
 
 include "./template/header.php";
 include "./template/navigation.php";
