@@ -4,16 +4,12 @@
     <div class="col-5">
 <?php
 
-    //Dossier racine
-    $homedir = "http://restologue/";
-    //$homedir = "http://localhost:8888/RestologueFull/";
-
 //Si session, affichage du module insertion de message sinon message demandant connexion
 
 if($_SESSION){
 ?> 
     <h4><b>Ajouter un commentaire</b></h4>
-    <form class="form" action="<?=$homedir?>?page=livredor" role="form" method="post">
+    <form class="form" action="<?=$racine?>?page=livredor" role="form" method="post">
         <div class="form-row">
             <div class="form-group col">
                 <div class="input-group ">

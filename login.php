@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+require('./folder.php');
 require("./scripts/fonctions.php");
 
 if($_POST){
@@ -35,7 +35,7 @@ if($_POST){
 
         if($result === "true"){   //Password OK
             $_SESSION['checked'] = "true";
-            header("location: http://restologue/");
+            header("location: " . $racine);
         }else{
             echo showMeTheLoginPage();
         }
@@ -66,8 +66,8 @@ if($_POST){
 }else{
     session_destroy();
 
-    if($_SERVER['HTTP_REFERER'] === "http://restologue/?page=gestionCartes"){
-        header("location: http://restologue/");
+    if($_SERVER['HTTP_REFERER'] === $racine."?page=gestionCartes" OR $_SERVER['HTTP_REFERER'] === $racine."?page=gestionUsers"){
+        header("location: " . $racine);
     }else{
         header("location: ".$_SERVER['HTTP_REFERER']);
     }

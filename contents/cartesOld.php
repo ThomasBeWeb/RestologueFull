@@ -48,7 +48,7 @@ foreach($listeIDs as $idCarte){
         foreach($myCard['menu'] as $value){
 
         //Prix du menu
-        $prixMenu = $value['entree']['prix'] + $value['plat']['prix'] + $value['dessert']['nom'];
+        $prixMenu = floatval($value['entree']['prix']) + floatval($value['plat']['prix']) + floatval($value['dessert']['nom']);
 
         ?>
         <div class="d-flex flex-column petiteCarte">
