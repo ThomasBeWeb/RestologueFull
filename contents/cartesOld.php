@@ -1,8 +1,6 @@
-<div class="row justify-content-center">
-        <h1>Notre carte du moment</h1>
-</div>
-<hr>
-<!-- Import de la carte -->
+
+        
+
 <?php
 //Recuperation de la liste des ID des cartes Online
 
@@ -16,6 +14,18 @@ if ($stream = fopen('https://whispering-anchorage-52809.herokuapp.com/cartes/get
         fclose($stream);
 }
 
+//En fonction du nb de cartes
+?>
+<div class="row justify-content-center">
+<?php if(count($listeIDs) > 1):?>
+        <h1>Nos cartes du moment</h1>
+<?php else: ?>
+        <h1>Notre carte du moment</h1>
+<?php endif; ?>
+</div>
+<hr>
+
+<?php
 //Pour chaque carte, recup des infos et affichage
 
 foreach($listeIDs as $idCarte){
@@ -39,10 +49,14 @@ foreach($listeIDs as $idCarte){
         
         <?php
         foreach($myCard['menu'] as $value){
+
+        //Prix du menu
+        $prixMenu = $value['entree']['prix'] + $value['plat']['prix'] + $value['dessert']['nom'];
+
         ?>
         <div class="d-flex flex-column petiteCarte">
                 <div class="p-2">
-                        <h3><?= $value['nom']; ?></h3>
+                        <h3><?= $value['nom'] . " (" . $prixMenu . " €)"; ?></h3>
                         <div class="p-2 d-flex flex-row justify-content-around">
                                 <div class="p-2">
                                         <h4>Entrée:</h4>
@@ -59,6 +73,7 @@ foreach($listeIDs as $idCarte){
                         </div>
                 </div>
         </div>
+        <br>
         <?php
         }
 
