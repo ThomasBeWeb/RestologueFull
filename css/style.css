@@ -41,15 +41,11 @@ a{
     margin: 10px;
 }
 
-.affichUser{
-    padding: 20px !important;
-}
-
 .elementCol{
     border: 2px solid rgb(22, 126, 121);
     border-radius: 5px;
     padding: 10px;
-    margin: 10px;
+    margin: 5px;
 }
 
 .pageSelected{
