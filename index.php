@@ -1,5 +1,4 @@
 <?php
-session_start();
 require('./folder.php');
 
 include "./template/header.php";

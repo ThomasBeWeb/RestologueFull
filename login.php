@@ -1,5 +1,4 @@
 <?php
-session_start();
 require('./folder.php');
 require("./scripts/fonctions.php");
 
