@@ -7,7 +7,7 @@ if($_POST){
 
     //Check si POST venant de l'étape simple login ou la suivante verif mot de passe admin
 
-    if(isset($_SESSION['fonction'])){ //Etape verif password
+    if(isset($_COOKIE['fonction'])){ //Etape verif password
 
         //Infos à POST
 
@@ -34,14 +34,15 @@ if($_POST){
         //Verif resultat
 
         if($result === "true"){   //Password OK
-            $_SESSION['checked'] = "true";
+            setcookie("checked", "true", time()+3600);
             header("location: " . $racine);
         }else{
             echo showMeTheLoginPage();
         }
 
     }else{ //Check Login
-        $_SESSION['username'] = $_POST['username'];
+
+        setcookie("username", $_POST['username'], time()+3600);
 
         //Verif si admin
 
@@ -51,7 +52,7 @@ if($_POST){
 
             fclose($stream);
             
-            $_SESSION['fonction'] = $fonction;
+            setcookie("fonction", $fonction, time()+3600);
 
             if($fonction === "admin"){  //Si admin affichage de la page login
 
@@ -64,7 +65,10 @@ if($_POST){
     }
     
 }else{
-    session_destroy();
+    //Suppression des cookies
+    setcookie("username", "" , time() - 3600);
+    setcookie("fonction", "" , time() - 3600);
+    setcookie("checked", "" , time() - 3600);
 
     if($_SERVER['HTTP_REFERER'] === $racine."?page=gestionCartes" OR $_SERVER['HTTP_REFERER'] === $racine."?page=gestionUsers"){
         header("location: " . $racine);
