@@ -1,3 +1,4 @@
+<div class="container">
 <div class="row head">
     <h2>Gestion des administrateurs</h2>
 </div>
@@ -5,7 +6,8 @@
 
 <!-- Recuperation de la liste des users et l'affiche dans une table-->
 <div class="row">
-    <div class="col-4 offset-1 elementCol">
+
+    <div class="col-5 elementCol">
     <h4>Liste des administrateurs</h4>
         <table class="table table-bordered">
             <thead>
@@ -51,7 +53,7 @@ foreach($listeUsers as $value){
 
 <!--Ajout d'un user-->
 
-<div class="col-4 offset-1 elementCol">
+<div class="col-5 elementCol">
     <h4>Ajouter un administrateur</h4>
 
     <form class="form" action="'.$homedir.'login.php" role="form" method="post">
@@ -70,4 +72,6 @@ foreach($listeUsers as $value){
     </form>
 </div>
 
+
+</div>
 </div>
