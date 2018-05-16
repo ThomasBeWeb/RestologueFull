@@ -1,7 +1,7 @@
 <?php
 require('./folder.php');
 function showMeTheBar(){
-   
+    
     //recup de la liste des fichiers du dossier content
     $fichiers = scandir("./contents/");
 
@@ -43,8 +43,8 @@ function showMeTheBar(){
     }
 
     //Si Admin ET password confirmé, ajout de la page Administration
-    if($_SESSION){
-        if($_SESSION['fonction'] === "admin" AND $_SESSION['checked'] === "true"){
+    if(isset($_COOKIE['fonction'])){
+        if($_COOKIE['fonction'] === "admin" AND $_COOKIE['checked'] === "true"){
             $listeFichiers['Gestion cartes'] = $GLOBALS['racine']."?page=gestionCartes";
             $listeFichiers['Gestion users'] = $GLOBALS['racine']."?page=gestionUsers";
         }
@@ -95,11 +95,11 @@ function showMeTheBar(){
 
         }
     }
-
-    if($_SESSION){
+    //Partie connexion
+    if(isset($_COOKIE['username'])){
         $message .= '
         <div class="ml-auto p-2">
-            <h6 class="titreMiddle">'.$_SESSION['username'].'</h6>
+            <h6 class="titreMiddle">'.$_COOKIE['username'].'</h6>
         </div>
         <div class="p-2">
             <a href="'.$GLOBALS['racine'].'login.php"><i class="fas fa-window-close"></i></a>
